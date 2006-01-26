@@ -1,6 +1,4 @@
 <?php
-	session_start();
-
 	$_SESSION['YEAR'] = 0;
 
 	$_SESSION['FIRSTREC'] = $_GET['firstRec'];

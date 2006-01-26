@@ -1,7 +1,4 @@
 <?php
-	mysql_connect("localhost","username","password");
-	mysql_select_db("database") or die(mysql_error());
-
 	$sql = "select filename,caption from photos where recordNum=$_GET[photo]";
 	$row = mysql_fetch_array(mysql_query($sql)) or die($sql.mysql_error());
 ?>

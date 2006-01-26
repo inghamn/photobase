@@ -1,10 +1,13 @@
 <?php
-	session_start();
-	mysql_connect("localhost","username","password");
-	mysql_select_db("database") or die(mysql_error());
-
-	# This grabs the process time for debugging purposes.
-	#$startArray = explode(" ",microtime());
+	#---------------------------------------------------------------------
+	# Send anything that comes in through GET to the session.
+	#---------------------------------------------------------------------
+	if (isset($_GET['category'])) { $_SESSION['CATEGORY'] = $_GET['category']; }
+	if (isset($_GET['keywords']))
+	{
+		$_GET['keywords'] = sanitizeString($_GET['keywords']);
+		$_SESSION['KEYWORDS'] = $_GET['keywords'];
+	}
 
 	#---------------------------------------------------------------------
 	# Set up the options that all of the rest of the scripts are going to use.
@@ -51,78 +54,42 @@
 	#---------------------------------------------------------------------
 	if (!isset($_SESSION['FIRSTREC'])) { $_SESSION['FIRSTREC'] = 0; }
 	$sql = "select recordNum,filename,state,caption,year(date) as year from photos $Options order by date,recordNum limit $_SESSION[FIRSTREC],15";
-	$gridPhotos = mysql_query($sql) or die($sql.mysql_error());
+	$photos = mysql_query($sql) or die($sql.mysql_error());
 
 	# If the current firstRec doesn't point to any photos, reset to 0 and reselect
-	if (!mysql_num_rows($gridPhotos))
+	if (!mysql_num_rows($photos))
 	{
 		$_SESSION['FIRSTREC'] = 0;
 		$sql = "select recordNum,filename,state,caption,year(date) as year from photos $Options order by date,recordNum limit $_SESSION[FIRSTREC],15";
-		$gridPhotos = mysql_query($sql) or die($sql.mysql_error());
+		$photos = mysql_query($sql) or die($sql.mysql_error());
 	}
 
 	#---------------------------------------------------------------------
-	# If there still aren't any photos in $gridPhotos, then there just aren't
+	# If there still aren't any photos in $photos, then there just aren't
 	# any that match what they selected.  This is most likely because they
 	# have something typed in the Keywords field.  We need to just come out
 	# and tell them that no photos match their selections
 	#---------------------------------------------------------------------
-	if (mysql_num_rows($gridPhotos))
+	if (mysql_num_rows($photos))
 	{
 		# Grab the first year listed so we can display it in the YEAR drop-down
-		$firstYearOnPage = mysql_result($gridPhotos,0,3);
-		mysql_data_seek($gridPhotos,0);
+		$firstYearOnPage = mysql_result($photos,0,3);
+		mysql_data_seek($photos,0);
 	}
 	else { $noPhotosMatch = 1; }
+
+
+	#-----------------------------------------------------------------------------------------
+	# Now we actually start writing the HTML stuff.
+	#-----------------------------------------------------------------------------------------
+	include("$APPLICATION_HOME/includes/xhtmlHeader.inc");
+	include("$APPLICATION_HOME/includes/banner.inc");
+	include("$APPLICATION_HOME/includes/categories.inc");
+
+
+	# If they don't want to see a particular photo, show them the thumbnails
+	if (isset($_GET['viewPhoto'])) { include("$APPLICATION_HOME/includes/viewPhoto.inc"); }
+	else { include("$APPLICATION_HOME/includes/thumbnails.inc"); }
+
+	include("$APPLICATION_HOME/includes/xhtmlFooter.inc");
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="album.css" type="text/css">
-<title>Family Album</title>
-</head>
-
-<body marginwidth="0" marginheight="0">
-<table width="640">
-<tr><td colspan="2" height="60" valign="top">
-		<?php include ("timeline.php"); ?>
-</td></tr>
-
-<tr><td width="120" valign="top">
-		<?php include ("categories.php"); ?>
-	</td>
-
-	<td valign="top" width="520" align="center">
-		<?php
-			if (isset($_GET['viewPhoto'])) { include ("viewPhoto.php"); }
-			elseif (isset($_GET['editPhoto'])) { include ("editPhoto.php"); }
-			elseif (isset($_GET['noPhotosMatch'])) { include ("noPhotosMatch.php"); }
-			else { include ("grid.php"); }
-
-			echo "<p>".mysql_num_rows($completeYearList)." photos</p>";
-
-			#--------------------------------------------------------------------
-			# Debugging Stuff
-			#--------------------------------------------------------------------
-			#echo "<p>";
-			#if (session_is_registered("YEAR")) { echo "Year=$YEAR "; }
-			#if (session_is_registered("FIRSTREC")) { echo "FirstRec=$FIRSTREC"; }
-			#if ($Options) { echo "Options=$Options"; }
-			#echo "</p>";
-
-		?>
-	</td>
-</tr>
-</table>
-<?php
-	#------------------------------------------------------------
-	# Before we quit, calculate how long it took to display this page.
-	# For debugging purposes.
-	#------------------------------------------------------------
-	#$endArray = explode(" ",microtime());
-	#$processTime = ((int)$endArray[1] + (float)$endArray[0]) - ((int)$startArray[1] + (float)$startArray[0]);
-	#echo "<p align=\"center\">ProcessTime: $processTime seconds</p>";
-?>
-</body>
-</html>
