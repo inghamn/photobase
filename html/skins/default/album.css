@@ -1,14 +1,22 @@
-BODY { background-color:#000066; color:white;
-		background-image:url(interface/bkg.gif);
-		margin:0px;
-	}
-A:link, A:visited, A:active { text-decoration: none; color: white; }
+body { background-color:black; color:white; font-family:sans-serif; margin:0px; }
 
-.category1 { font-family: serif; font-size: 12pt; font-weight: bold; }
-.category2 { font-family: serif; font-size: 12pt; }
+img { border:none; }
+a { color:white; text-decoration:none; }
 
-#caption { font-family: serif; font-size: 10pt; }
-#location { }
-#date { }
+form { display:inline; }
 
-.controlSettings { font-family: serif; font-size: 18; }
+#banner { background-color:purple; width:100%; }
+
+#categories { background-color:purple; width:125px; float:left; font-family:cursive; }
+#categories ul { list-style-type:none; margin:0; padding:0; font-family:sans-serif; font-size:smaller; }
+#categories ul ul { margin-left:1em; }
+
+
+#main { margin-left:130px; }
+
+
+.thumbnail { float:left; width:100px; height:120px; margin:10px; text-align:center; }
+.photo { }
+
+
+#navigation { clear:both; text-align:center; }
