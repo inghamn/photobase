@@ -8,7 +8,7 @@
 			echo "<ul>";
 			while (list($category_id,$category) = mysql_fetch_array($temp))
 			{
-				echo "<li>$category";
+				echo "<li><a href=\"setCategory.php=category_id=$category_id\">$category</a>";
 				print_category_children($category_id);
 				echo "</li>";
 			}

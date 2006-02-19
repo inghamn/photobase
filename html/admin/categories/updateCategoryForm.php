@@ -4,9 +4,9 @@
 */
 	verifyUser("Administrator");
 
-	include("$APPLICATION_HOME/includes/xhtmlHeader.inc");
-	include("$APPLICATION_HOME/includes/banner.inc");
-	include("$APPLICATION_HOME/includes/toolboxes/admin.inc");
+	include(APPLICATION_HOME."/includes/xhtmlHeader.inc");
+	include(APPLICATION_HOME."/includes/banner.inc");
+	include(APPLICATION_HOME."/includes/toolboxes/admin.inc");
 
 	$sql = "select * from categories where category_id=$_GET[category_id]";
 	$category = mysql_fetch_array(mysql_query($sql)) or die($sql.mysql_error());
@@ -29,5 +29,5 @@
 	</form>
 </div>
 
-<?php include("$APPLICATION_HOME/includes/xhtmlFooter.inc"); ?>
+<?php include(APPLICATION_HOME."/includes/xhtmlFooter.inc"); ?>
 

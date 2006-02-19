@@ -2,10 +2,10 @@
 body { background-color:black; color:white; font-family:sans-serif; margin:0px; }
 
 img { border:none; }
-a { color:white; text-decoration:none; }
+a { color:purple; text-decoration:none; }
 a:link { color:#3366cc; background-color:inherit; }
 a:active { color:red; background-color:inherit; }
-a:visited { color:white;  background-color:inherit; }
+a:visited { color:purple;  background-color:inherit; }
 a:hover { color:#666666; background-color:inherit; }
 
 h1 { text-align:left; margin:0em; }
@@ -43,7 +43,7 @@ div.titleBar a { margin:0px; height:20px; }
 /* These are for the floating tool boxes on the side of the page */
 div.sidebar { width:155px; float:left; clear:left; font-family:sans-serif; font-size:10pt; background-color:white; color:inherit; margin-bottom:2em; border:2px solid black; border-collapse:collapse; }
 div.sidebar div.titleBar { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0px; border-top:0; border-left:0; border-right:0; border-bottom:2px solid black; text-align:center; }
-div.sidebar a:hover { color:#666666; background-color:inherit;}
+div.sidebar a:hover { color:#purple; background-color:inherit;}
 
 div.sidebar ul { list-style-type:none; margin-left:.5em; padding:0; }
 div.sidebar ul a { display:inline; font-weight:bold; }

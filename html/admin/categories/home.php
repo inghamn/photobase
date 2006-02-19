@@ -4,9 +4,9 @@
 */
 	verifyUser("Administrator");
 
-	include("$APPLICATION_HOME/includes/xhtmlHeader.inc");
-	include("$APPLICATION_HOME/includes/banner.inc");
-	include("$APPLICATION_HOME/includes/toolboxes/admin.inc");
+	include(APPLICATION_HOME."/includes/xhtmlHeader.inc");
+	include(APPLICATION_HOME."/includes/banner.inc");
+	include(APPLICATION_HOME."/includes/toolboxes/admin.inc");
 ?>
 
 <div id="mainContent">
@@ -40,4 +40,4 @@
 	?>
 </div>
 
-<?php include("$APPLICATION_HOME/includes/xhtmlFooter.inc"); ?>
+<?php include(APPLICATION_HOME."/includes/xhtmlFooter.inc"); ?>

@@ -4,12 +4,12 @@
 */
 	verifyUser("Administrator");
 
-	include("$APPLICATION_HOME/includes/xhtmlHeader.inc");
-	include("$APPLICATION_HOME/includes/banner.inc");
-	include("$APPLICATION_HOME/includes/toolboxes/admin.inc");
+	include(APPLICATION_HOME."/includes/xhtmlHeader.inc");
+	include(APPLICATION_HOME."/includes/banner.inc");
+	include(APPLICATION_HOME."/includes/toolboxes/admin.inc");
 
 	$current_category = $_GET['parent_category'];
-	include("$APPLICATION_HOME/includes/category_breadcrumbs.inc");
+	include(APPLICATION_HOME."/includes/category_breadcrumbs.inc");
 ?>
 
 <div id="mainContent">
@@ -29,4 +29,4 @@
 	</form>
 </div>
 
-<?php include("$APPLICATION_HOME/includes/xhtmlFooter.inc"); ?>
+<?php include(APPLICATION_HOME."/includes/xhtmlFooter.inc"); ?>
