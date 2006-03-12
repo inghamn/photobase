@@ -10,8 +10,12 @@
 
 <div id="mainContent">
 	<?php
-		print_r($_SESSION);
-		include(APPLICATION_HOME."/includes/thumbnails.inc");
+		$photoList = new PhotoList();
+		$photoList->find();
+		foreach($photoList as $photo)
+		{
+			echo "<div>$photo->getName();</div>";
+		}
 	?>
 </div>
 
