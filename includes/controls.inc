@@ -1,5 +1,5 @@
 <div id="controls">
-	<button type="button" class="reset" onclick="document.location.href='<?php echo $BASE_URL; ?>/reset.php';">Reset</button>
+	<button type="button" class="reset" onclick="document.location.href='<?php echo BASE_URL; ?>/reset.php';">Reset</button>
 
 	<form method="post" action="setYear.php">
 		<fieldset><legend>Year</legend>

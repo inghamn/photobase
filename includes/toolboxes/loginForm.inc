@@ -1,6 +1,6 @@
 <div class="sidebar">
 	<div class="titleBar">Login</div>
-	<form method="post" action="<?php echo $BASE_URL; ?>/login.php">
+	<form method="post" action="<?php echo BASE_URL; ?>/login.php">
 		<table>
 		<tr><td><label for="username">User:</label></td>
 			<td><input name="username" id="username" size="10" /></td></tr>

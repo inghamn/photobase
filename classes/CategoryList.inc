@@ -1,4 +1,6 @@
 <?php
+	require_once(APPLICATION_HOME."/classes/MySQLResultIterator.inc");
+	require_once(APPLICATION_HOME."/classes/Category.inc");
 	class CategoryList extends MySQLResultIterator implements RecursiveIterator
 	{
 		public function find($fields=null,$sort="name")
@@ -8,7 +10,7 @@
 				$options = array();
 				if (isset($fields['categoryID'])) { $options[] = "categoryID=$fields[categoryID]"; }
 				if (isset($fields['category'])) { $options[] = "category='$fields[category]'"; }
-				if (isset($fields['parentID'])) { $options[] = "parentID=$fields[parentID]"; }
+				if (isset($fields['parentID'])) { if ($fields['parentID']) $options[] = "parentID=$fields[parentID]"; else $options[] = "parentID is null"; }
 				
 				$where = "where ".implode(" and ",$options);
 				$sql = "select categoryID from categories $where order by $sort";

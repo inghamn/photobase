@@ -12,7 +12,7 @@
 		private $caption;
 		private $notes;
 		
-		private categories = array();
+		private $categories = array();
 		
 		public function __construct($id=null)
 		{

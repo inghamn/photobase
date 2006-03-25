@@ -3,7 +3,7 @@
 	
 	class PhotoList extends MySQLResultIterator
 	{
-		public find($fields=null,$sort="date")
+		public function find($fields=null,$sort="date")
 		{
 			if ($fields)
 			{
@@ -46,7 +46,7 @@
 			else { throw new Exception("missingRequireFields"); }
 		}
 		
-		protected loadCurrent()
+		protected function loadCurrent()
 		{
 			if (mysql_num_rows($this->result))
 			{

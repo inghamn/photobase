@@ -1,15 +1,16 @@
 <?php
-	function print_category_children($category)
+	require_once(APPLICATION_HOME."/classes/CategoryList.inc");
+	function print_category_children($parentID)
 	{
-		$sql = "select category_id,category from categories where parent_category=$category order by category";
-		$temp = mysql_query($sql) or die($sql.mysql_error());
-		if (mysql_num_rows($temp))
+		$categories = new CategoryList();
+		$categories->find( array("parentID"=>$parentID) );
+		if (count($categories))
 		{
 			echo "<ul>";
-			while (list($category_id,$category) = mysql_fetch_array($temp))
+			foreach($categories as $category)
 			{
-				echo "<li><a href=\"setCategory.php=category_id=$category_id\">$category</a>";
-				print_category_children($category_id);
+				echo "<li><a href=\"setCategory.php=categoryID={$category->getCategoryID()}\">{$category->getName()}</a>";
+				if ($category->hasChildren()) { print_category_children($category->getCategoryID()); }
 				echo "</li>";
 			}
 			echo "</ul>";
