@@ -1,11 +1,12 @@
 <?php
 /*
-	$_GET variables:	category_id
+	$_GET variables:	categoryID
 */
 	verifyUser("Administrator");
-
-	$sql = "delete from categories where category_id=$_GET[category_id]";
-	mysql_query($sql) or die($sql.mysql_error());
+	
+	require_once(APPLICATION_HOME."/classes/Category.inc");
+	$category = new Category($_GET['catgoryID']);
+	$category->delete();
 
 	Header("Location: home.php");
 ?>

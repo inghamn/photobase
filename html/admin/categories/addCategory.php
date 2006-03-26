@@ -2,19 +2,23 @@
 /*
 	Saves a new category to the database
 
-	$_POST variables:	parent_category
-						category
+	$_POST variables:	parentID
+						name
 */
 	verifyUser("Administrator");
-
-	$_POST['category'] = sanitizeString($_POST['category']);
-	if (!$_POST['category'])
+	
+	require_once(APPLICATION_HOME."/classes/Category.inc");
+	$category = new Category();
+	$category->setName($_POST['name']);
+	$category->setParentID($_POST['parentID']);
+	
+	try { $category->save(); }
+	catch (Exception $e)
 	{
-		Header("Location: home.php");
+		$_SESSION['errorMessages'][] = $e;
+		Header("Location: addCategoryForm.php?parentID=$_POST[parentID]");
+		exit();
 	}
-
-	$sql = "insert categories set category='$_POST[category]',parent_category=$_POST[parent_category]";
-	mysql_query($sql) or die($sql.mysql_error());
 
 	Header("Location: home.php");
 ?>

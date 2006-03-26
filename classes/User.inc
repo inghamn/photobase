@@ -1,5 +1,5 @@
 <?php
-	abstract class SystemUser
+	class User
 	{
 		private $userID;
 		private $username;
@@ -8,16 +8,17 @@
 		private $lastname;
 		private $roles = array();
 		
-		public function __construct($id)
+		public function __construct($id=null)
 		{
-			if (is_numeric($id))
+			if ($id)
 			{
-				$sql = "select * from users where userID=$id";
+				if (is_numeric($id)) { $sql = "select * from users where userID=$id"; }
+				else { $sql = "select * from users where username='$id'"; }
 				$result = mysql_query($sql) or die($sql.mysql_error());
 				if (mysql_num_rows($result))
 				{
 					$user = mysql_fetch_array($result);
-					$this->userID = $id;
+					$this->userID = $user['userID'];
 					$this->username = $user['username'];
 					$this->firstname = $user['firstname'];
 					$this->lastname = $user['lastname'];
@@ -38,7 +39,8 @@
 		public function authenticate($password)
 		{
 			$sql = "select userID from users where username='{$this->getUsername()}' and password=md5('$password')";
-			if (mysql_num_rows(mysql_query($sql))) { return true; }
+			$result = mysql_query($sql) or die($sql.mysql_error());
+			if (mysql_num_rows($result)) { return true; }
 			else { return false; }
 		}
 
@@ -65,7 +67,7 @@
 			$sql = "delete from users where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
 			
-			$sql = "delete from userRoles where userID={$this->userID}":
+			$sql = "delete from userRoles where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
 		}
 

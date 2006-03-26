@@ -1,30 +1,21 @@
 <?php
-	if (isset($current_category))
+	if (isset($currentCategoryID))
 	{
 		$categories = array();
-		$categories = getCategories($current_category,$categories);
+		$category = new Category($currentCategoryID);
+		$categories[] = $category->getName();
+		
+		while($category->getParentID())
+		{
+			$category = new Category($category->getParentID());
+			$categories[] = $category->getName();
+		}
+		
+		
 		$categories = array_reverse($categories);
 
 		echo "<div class=\"breadcrumbs\">";
-		foreach($categories as $category)
-		{
-			echo "$category[category] - ";
-		}
+		foreach($categories as $name) { echo "$name - "; }
 		echo "</div>";
 	}
-
-	function getCategories($category_id,$categories)
-	{
-		$sql = "select * from categories where category_id=$category_id";
-		$category = mysql_fetch_array(mysql_query($sql)) or die($sql.mysql_error());
-		$categories[] = $category;
-
-		if ($category['parent_category'])
-		{
-			$categories = getCategories($category['parent_category'],$categories);
-		}
-
-		return $categories;
-	}
-
 ?>

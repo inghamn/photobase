@@ -24,5 +24,5 @@
 	session_start();
 	
 
-	include(APPLICATION_HOME."/classes/globalFunctions.inc");
+	include(APPLICATION_HOME."/includes/globalFunctions.inc");
 ?>

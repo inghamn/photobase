@@ -10,28 +10,28 @@
 ?>
 
 <div id="mainContent">
-	<h1><button type="button" class="addSmall" onclick="document.location.href='addCategoryForm.php?parent_category=0';">Add</button>
+	<h1><button type="button" class="addSmall" onclick="document.location.href='addCategoryForm.php?parentID=0';">Add</button>
 		Categories
 	</h1>
 	<?php
+		require_once(APPLICATION_HOME."/classes/CategoryList.inc");
 		print_category_children(0);
-
-		function print_category_children($category)
+		function print_category_children($parentID)
 		{
-			$sql = "select category_id,category from categories where parent_category=$category order by category";
-			$temp = mysql_query($sql) or die($sql.mysql_error());
-			if (mysql_num_rows($temp))
+			$categories = new CategoryList();
+			$categories->find( array("parentID"=>$parentID) );
+			if (count($categories))
 			{
 				echo "<ul>";
-				while (list($category_id,$category) = mysql_fetch_array($temp))
+				foreach($categories as $category)
 				{
 					echo "
-					<li><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='addCategoryForm.php?parent_category=$category_id';\">Add</button>
-						<button type=\"button\" class=\"editSmall\" onclick=\document.location.href='updateCategoryForm.php?category_id=$category_id';\">Edit</button>
-						<button type=\"button\" class=\"deleteSmall\" onclick=\"deleteConfirmation('deleteCategory.php?category_id=$category_id');\">Delete</button>
-						$category
+					<li><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='addCategoryForm.php?parentID={$category->getCategoryID()}';\">Add</button>
+						<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='updateCategoryForm.php?categoryID={$category->getCategoryID()}';\">Edit</button>
+						<button type=\"button\" class=\"deleteSmall\" onclick=\"deleteConfirmation('deleteCategory.php?categoryID={$category->getCategoryID()}');\">Delete</button>
+						{$category->getName()}
 					";
-					print_category_children($category_id);
+					if ($category->hasChildren()) { print_category_children($category->getCategoryID()); }
 					echo "</li>";
 				}
 				echo "</ul>";

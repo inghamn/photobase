@@ -1,6 +1,6 @@
 <?php
 /*
-	$_GET variables:	category_id
+	$_GET variables:	categoryID
 */
 	verifyUser("Administrator");
 
@@ -8,19 +8,19 @@
 	include(APPLICATION_HOME."/includes/banner.inc");
 	include(APPLICATION_HOME."/includes/toolboxes/admin.inc");
 
-	$sql = "select * from categories where category_id=$_GET[category_id]";
-	$category = mysql_fetch_array(mysql_query($sql)) or die($sql.mysql_error());
+	require_once(APPLICATION_HOME."/classes/Category.inc");
+	$category = new Category($_GET['categoryID']);
 ?>
 
 <div id="mainContent">
 	<h1>Edit a category</h1>
 	<form method="post" action="updateCategory.php">
 	<fieldset><legend>Category Info</legend>
-		<input name="category_id" type="hidden" value="<?php echo $_GET['category_id']; ?>" />
+		<input name="categoryID" type="hidden" value="<?php echo $_GET['categoryID']; ?>" />
 
 		<table>
-		<tr><td><label for="category">Category</label></td>
-			<td><input name="category" id="category" value="<?php echo $category['category']; ?>" /></td></tr>
+		<tr><td><label for="name">Category</label></td>
+			<td><input name="name" id="name" value="<?php echo $category->getName(); ?>" /></td></tr>
 		</table>
 
 		<button type="submit" class="submit">Submit</button>
@@ -30,4 +30,3 @@
 </div>
 
 <?php include(APPLICATION_HOME."/includes/xhtmlFooter.inc"); ?>
-

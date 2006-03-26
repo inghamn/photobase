@@ -15,7 +15,7 @@
 		if (func_num_args() > 0)
 		{
 			list($role) = func_get_args();
-			if (!in_array($role,$_SESSION['ROLES']))
+			if (!in_array($role,$_SESSION['USER']->getRoles()))
 			{
 				# They're trying to go somewhere they're not supposed to
 				$_SESSION['errorMessages'][] = "noAccessAllowed";
