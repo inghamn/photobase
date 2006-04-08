@@ -7,7 +7,7 @@
 		private $firstname;
 		private $lastname;
 		private $roles = array();
-		
+
 		public function __construct($id=null)
 		{
 			if ($id)
@@ -22,18 +22,18 @@
 					$this->username = $user['username'];
 					$this->firstname = $user['firstname'];
 					$this->lastname = $user['lastname'];
-					
+
 					$this->loadRoles();
 				}
 				else { throw new Exception($sql); }
 			}
 		}
-		
-		
-		
+
+
+
 		public function addRole($role) { if(!in_array($role,$this->roles)) { $this->roles[] = $role; } }
 		public function deleteRole($role) { foreach($this->roles as $i=>$r) { if ($r == $role) unset($this->roles[$i]); } }
-		
+
 
 
 		public function authenticate($password)
@@ -55,9 +55,13 @@
 
 		public function save()
 		{
-			if ($this->getUserID()) { $this->update(); }
+			# Make sure we've got the required fields
+			if (!$this->firstname || !$this->lastname || !$this->username) { throw new Exception("missingRequiredFields"); }
+
+
+			if ($this->userID) { $this->update(); }
 			else { $this->insert(); }
-			
+
 			if ($this->password) { $this->savePassword(); }
 			$this->saveRoles();
 		}
@@ -66,36 +70,36 @@
 		{
 			$sql = "delete from users where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
-			
+
 			$sql = "delete from userRoles where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
 		}
 
 		public function savePassword()
 		{
-			$sql = "update users set password=md5('$this->password') where userID={$this->userID}";
+			$sql = "update users set password='$this->password' where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
 		}
-		
+
 		private function update()
 		{
 			$sql = "update users set username='{$this->username}',firstname='{$this->firstname}',lastname='{$this->lastname}' where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
 		}
-		
+
 		private function insert()
 		{
-			$sql = "update users set username='{$this->username}',firstname='{$this->firstname}',lastname='{$this->lastname}'";
+			$sql = "insert users set username='{$this->username}',firstname='{$this->firstname}',lastname='{$this->lastname}'";
 			mysql_query($sql) or die($sql.mysql_error());
-			
+
 			$this->userID = mysql_insert_id();
 		}
-		
+
 		private function saveRoles()
 		{
 			$sql = "delete from userRoles where userID={$this->userID}";
 			mysql_query($sql) or die($sql.mysql_error());
-			
+
 			foreach($this->roles as $role)
 			{
 				$sql = "insert userRoles values({$this->userID},'$role')";
@@ -124,11 +128,12 @@
 		public function setUserID($userID) { $this->userID = $userID; }
 		public function setFirstname($string) { $this->firstname = sanitizeString($string); }
 		public function setLastname($string) { $this->lastname = sanitizeString($string); }
+		public function setRoles($array) { $this->roles = $array; }
 		public function setUsername($username)
 		{
 			$username = sanitizeString($username);
 			if ($username) { $this->username = $username; }
 		}
-		public function setPassword($string) { $this->password = $string; }
+		public function setPassword($string) { $this->password = md5($string); }
 	}
 ?>
