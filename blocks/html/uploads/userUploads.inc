@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param User $this->user
@@ -12,7 +12,7 @@
 <p>To import these photos as a roll, type in a name for the roll, and hit the import button.</p>
 	<input name="roll_name" />
 	<button type="submit">Import</button>
-	
+
 	<div>
 	<?php
 	if ($this->user->hasUploads())
@@ -23,7 +23,7 @@
 			{
 				$image = new Media();
 				$image->setFile($upload->getPathname());
-				
+
 				echo "
 				<span class=\"image thumbnail\">
 					<img src=\"".BASE_URL."/uploads/thumbnail.php?image=$upload\" />

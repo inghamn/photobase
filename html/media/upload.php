@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param POST file
@@ -13,7 +13,7 @@ if (!isset($_SESSION['USER']))
 	try
 	{
 		$user = new User($_POST['username']);
-	
+
 		if ($user->authenticate($_POST['password'])) { $user->startNewSession(); }
 		else { throw new Exception('wrongPassword'); }
 	}

@@ -1,13 +1,13 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param UserList $this->userList
  */
 	if (userHasRole("Administrator"))
 	{
-		$addButton = "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/users/addUser.php';\">Add</button>";
+		$addButton = "<a class=\"add button\" href=\"".BASE_URL."/users/addUser.php\">Add</a>";
 	}
 	else { $addButton = ""; }
 ?>
@@ -19,8 +19,8 @@
 		{
 			if (userHasRole("Administrator"))
 			{
-				$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='updateUser.php?id={$user->getId()}'\">Edit</button>";
-				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('deleteUser.php?id={$user->getId()}');\">Delete</button>";
+				$editButton = "<a class=\"edit button\" href=\"".BASE_URL."/users/updateUser.php?id={$user->getId()}\">Edit</a>";
+				$deleteButton = "<button type=\"button\" class=\"delete\" onclick=\"FRAMEWORK.deleteConfirmation('deleteUser.php?id={$user->getId()}');\">Delete</button>";
 			}
 			else
 			{

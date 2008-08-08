@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * Represents a directory of uploaded media to be added to the database
@@ -33,7 +33,7 @@ class UserUploadDirectory Implements Countable,IteratorAggregate
 			$media->setFile($file);
 			$media->save();
 		}
-		
+
 		foreach(glob($this->getDirectory().'/thumbnail/*.*') as $thumbnail)
 		{
 			unlink($thumbnail);
@@ -41,15 +41,15 @@ class UserUploadDirectory Implements Countable,IteratorAggregate
 
 		return $roll;
 	}
-	
+
 	public function getDirectory() { return APPLICATION_HOME.'/uploads/'.$this->user->getUsername(); }
 
 
 	# Countable Section
 	public function count() { return count(glob($this->getDirectory().'/*.*')); }
-	
+
 	public function getIterator() { return new DirectoryIterator($this->getDirectory()); }
-	
+
 	public function add($file)
 	{
 		echo "Adding file";
