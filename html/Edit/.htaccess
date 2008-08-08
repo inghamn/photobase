@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Log in to edit the Photo Album"
-AuthUserFile G:\album\Edit\.htpasswd
-Require user sultana

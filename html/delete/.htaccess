@@ -1,4 +1,0 @@
-AuthType Basic
-AuthName "Delete photos from the album"
-AuthUserFile G:\album\Delete\.htpasswd
-Require user mingham

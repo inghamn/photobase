@@ -1,0 +1,90 @@
+<?php
+define('COPYRIGHT',"/**
+ * @copyright Copyright (C) 2007 Cliff Ingham. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ */");
+/**
+ * Used to keep sessions on the same webserver seperate;
+ */
+define('APPLICATION_NAME','photobase');
+
+/**
+ * This needs to point to the library directory inside your
+ * installation of the ZendFramework
+ * http://framework.zend.com
+ */
+define('ZEND','/var/www/libraries/ZendFramework/library');
+
+/**
+ * Where on the filesystem this application is installed
+ */
+define('APPLICATION_HOME','/var/www/sites/photobase');
+
+/**
+ * Where on the filesystem the framework is installed.
+ */
+define('FRAMEWORK',APPLICATION_HOME.'/libraries/framework');
+
+/**
+ * The URL to get to this site
+ * Do NOT use a trailing slash
+ */
+define('BASE_URL','http://localhost/photobase');
+
+/**
+ * Used when there's an error on the site.  The Framework will
+ * print out a nice error message, encouraging users to report any problems
+ * See: FRAMEWORK/ITSFunctions.inc
+ */
+define('ADMINISTRATOR_NAME','Site Admin');
+define('ADMINISTRATOR_EMAIL','admin@servername.com');
+
+/**
+ * Database Setup
+ */
+define('DB_TYPE','mysql');
+define('DB_DSN','host=localhost;'); # You must include the trailing semi-colon
+define('DB_NAME',APPLICATION_NAME);
+define('DB_USER',APPLICATION_NAME);
+define('DB_PASS','password');
+
+
+# This application calls mysql and mysqldump from the command line through
+# exec() and needs the path to the binaries
+define('MYSQL_PATH','/usr/local/mysql');
+
+/**
+ * LDAP Configuration
+ * This is required in order to use the LDAP authentication
+ * If you do not want to use LDAP authentication, you can comment this out
+ */
+define('LDAP_DOMAIN','city.bloomington.in.us');
+define('LDAP_DN','ou=people,o='.LDAP_DOMAIN);
+define('LDAP_USERNAME_ATTRIBUTE','uid');
+define('LDAP_ADMIN_USER','username');
+define('LDAP_ADMIN_PASS','password');
+define('LDAP_SERVER','ldap.bloomington.in.gov');
+define('LDAP_PASSWORD_ATTRIBUTE','userpassword');
+
+/**
+ * Image handling library
+ * Set the path to the ImageMagick binaries
+ */
+define('IMAGEMAGICK','/usr/bin');
+
+/**
+ * Audio/Video handling library
+ * Set the path to the MPlayer binaries
+ */
+define('MPLAYER','/usr/local/mplayer/bin');
+
+/**
+ * Import global functions that we use for many applications we write
+ */
+include FRAMEWORK.'/globalFunctions.inc';
+
+/**
+ * Session Startup
+ */
+session_start();
+if (!isset($_SESSION['filters'])) { $_SESSION['filters'] = array(); }
