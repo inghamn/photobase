@@ -425,7 +425,12 @@ class Media extends ActiveRecord
 	{
 		if (is_array($datetime)) { $this->date = $this->dateArrayToTimestamp($datetime); }
 		elseif(ctype_digit($datetime)) { $this->date = $datetime; }
-		else { $this->date = strtotime($datetime); }
+		else
+		{
+			$datetime = trim($datetime);
+			if ($datetime) { $this->date = strtotime($datetime); }
+			else { $this->date = null; }
+		}
 	}
 
 	public function setUser($user) { $this->user_id = $user->getId(); $this->user = $user; }
