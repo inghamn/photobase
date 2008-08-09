@@ -14,7 +14,7 @@ a { text-decoration:none; cursor:pointer; }
 a:link { color:#3366cc; background-color:transparent; }
 a:active { color:red; background-color:transparent; }
 a:visited { color:#3366cc;  background-color:transparent; }
-a:hover { color:#666666; background-color:transparent; }
+a:hover { color:#666666; background-color:transparent; text-decoration: underline; }
 
 img { border:0; }
 .image { display:block; text-align:center; }
@@ -49,7 +49,8 @@ form table { border:none; }
 
 ul { margin-top:0em; list-style-type:none; }
 ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
-li.current>a { background-color:#cccccc; width:100%; }
+li.current > a { background-color:#cccccc; width:100%; }
+li a.current { color: black; font-weight: bold; font-size: larger; }
 
 
 /* Top Banner stuff */
@@ -78,15 +79,15 @@ li.current>a { background-color:#cccccc; width:100%; }
 .interfaceBox h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
 
 /* These are for the boxes on the sides of the page */
-.sidebar { width:155px; font-size:12px; margin-top:1em; }
+.sidebar { width:270px; font-size:12px; margin-top:1em; margin-left: 10px; padding-right: 10px; }
 .sidebar h1 { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
 
 .sidebar ul { list-style-type:none; margin-left:.5em; padding:0; }
 .sidebar ul a { display:inline; font-weight:bold; }
 .sidebar fieldset { border:0; }
 .sidebar legend { display:none; }
-.sidebar div { margin-bottom:2em; border:2px solid black; }
-.sidebar div h1 { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
+.sidebar div { margin-bottom:2em; border:2px solid black; padding-bottom: 5px; }
+.sidebar div h1 { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0px 0px 5px 0px; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
 .sidebar input { width:140px; }
 	h1 form { margin:0; padding:0; display:inline; height:1em; }
 	h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
@@ -127,8 +128,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 .contactSheet { overflow:auto; }
 
 /* Page Navigation Stuff */
-.pageNavigation { }
-.pageNavigation li { display:inline; }
+.pageNavigation { text-align: center; }
+.pageNavigation li { display:inline; padding: 0px 5px; }
 .pageNavigation a { }
 .pageNavigation button { }
 
@@ -182,6 +183,7 @@ a.last { width:22px; height:22px; background-image:url('images/player_end.png');
 #warning h1 { color:inherit; background-color:red; font-size:14pt; }
 
 /* Tag Styles */
+.tags span { padding: 0px 2px; }
 .tags .p90 { font-size:250%; }
 .tags .p70 { font-size:200%; }
 .tags .p50 { font-size:150%; }

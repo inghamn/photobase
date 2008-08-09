@@ -21,10 +21,10 @@ if (count($this->pages) > 1)
 	if ($this->page != 0)
 	{
 		$url->page = 0;
-		echo "<li><a href=\"$url\" class=\"first button\">First</a></li>";
+		echo "<li><a href=\"$url\">&#124;&lt;</a></li>";
 
 		$url->page = $this->page-1;
-		echo "<li><a href=\"$url\" class=\"previous button\">Back</a></li>";
+		echo "<li><a href=\"$url\">&lt;&lt;</a></li>";
 	}
 
 	# Show the page number links
@@ -35,7 +35,7 @@ if (count($this->pages) > 1)
 	{
 		$displayNumber = $i+1;
 		$url->page = $i;
-		$class = ($i != $this->page) ? 'class="current"' : '';
+		$class = ($i == $this->page) ? 'class="current"' : '';
 		echo "<li><a href=\"$url\" $class>$displayNumber</a></li>";
 	}
 
@@ -43,10 +43,10 @@ if (count($this->pages) > 1)
 	if ($this->page != $this->pages->getLastIndex())
 	{
 		$url->page = $this->page+1;
-		echo "<li><a href=\"$url\" class=\"next button\">Next</a></li>";
+		echo "<li><a href=\"$url\">&gt;&gt;</a></li>";
 
 		$url->page = $this->pages->getLastIndex();
-		echo "<li><a href=\"$url\" class=\"last button\">Last</a></li>";
+		echo "<li><a href=\"$url\">&gt;&#124;</a></li>";
 	}
 
 	echo '</ul>';

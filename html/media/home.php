@@ -50,9 +50,9 @@ $list = new MediaList();
 $list->find($_SESSION['filters']);
 
 # If we've got a lot of photos, split them up into seperate pages
-if (count($list) > 10)
+if (count($list) > 12)
 {
-	$pages = new Paginator($list,10);
+	$pages = new Paginator($list,12);
 
 	# Make sure we're asking for a page that actually exists
 	$page = (isset($_GET['page']) && $_GET['page']) ? (int)$_GET['page'] : 0;
