@@ -4,31 +4,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-if (!isset($_SESSION['USER']))
-{
-	try
-	{
-		if (isset($_POST['username']) && isset($_POST['password']))
-		{
-			$user = new User($_POST['username']);
+verifyUser();
 
-			if ($user->authenticate($_POST['password'])) { $user->startNewSession(); }
-			else { throw new Exception('wrongPassword'); }
-		}
-		else { throw new Exception('noAccessAllowed'); }
-	}
-	catch (Exception $e)
-	{
-		$_SESSION['errorMessages'][] = $e;
-		Header('Location: '.BASE_URL);
-		exit();
-	}
-}
-
-if (isset($_FILES['mediafile']))
+if (isset($_FILES['userfile']))
 {
 	$directory = $_SESSION['USER']->getUploadDirectory();
-	$directory->add($_FILES['mediafile']);
+	$directory->add($_FILES['userfile']);
 }
 
 if (isset($_POST['roll_name']) && $_POST['roll_name'])

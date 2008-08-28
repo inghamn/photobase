@@ -28,3 +28,11 @@ Or, write to
 Free Software Foundation, Inc.
 51 Franklin Street, Fifth Floor
 Boston, MA  02110-1301, USA
+
+---------------------------------------------------------------------
+The Postlet Applet in this application is included under the GPL license
+
+Postlet is Copyright (C) 2005 Simon David Rycroft
+
+http://sourceforge.net/projects/postlet
+http://postlet.com

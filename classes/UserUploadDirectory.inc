@@ -64,6 +64,10 @@ class UserUploadDirectory Implements Countable,IteratorAggregate
 					throw new Exception('uploads/failedAddingFile');
 				}
 			}
+			else
+			{
+				throw new Exception('uploads/invalidFiletype');
+			}
 		}
 		elseif(is_file($file))
 		{
@@ -71,6 +75,10 @@ class UserUploadDirectory Implements Countable,IteratorAggregate
 			if (Media::isValidFiletype($filename))
 			{
 				rename($file,"{$this->getDirectory()}/$filename");
+			}
+			else
+			{
+				throw new Exception('uploads/invalidFiletype');
 			}
 		}
 	}
