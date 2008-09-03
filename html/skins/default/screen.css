@@ -11,10 +11,10 @@ sup { vertical-align:super; }
 code { font-family:monospace; }
 
 a { text-decoration:none; cursor:pointer; }
-a:link { color:#3366cc; background-color:transparent; }
-a:active { color:red; background-color:transparent; }
-a:visited { color:#3366cc;  background-color:transparent; }
-a:hover { color:#666666; background-color:transparent; text-decoration: underline; }
+a:link { color:#000000; background-color:transparent; }
+a:active { color:00cc33; background-color:transparent; }
+a:visited { color:#000000;  background-color:transparent; }
+a:hover { color:#006633; background-color:transparent; text-decoration: underline; }
 
 img { border:0; }
 .image { display:block; text-align:center; }
@@ -34,7 +34,7 @@ p { margin-top:.5em; margin-bottom:.5em; }
 
 form {  }
 fieldset { border:2px solid black; }
-legend { border:2px solid black; padding:.5em; background-color:#3366cc; color:white; font-weight:bold; }
+legend { border:2px solid black; padding:.5em; background-color:#006633; color:white; font-weight:bold; }
 label { font-weight:bold; }
 .required { color:red; background-color:inherit; }
 input { font-family:sans-serif; font-size:8pt; }
@@ -44,20 +44,22 @@ table { border-collapse:collapse; border:1px solid black; }
 tr { vertical-align:top; }
 td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
 th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
-th a:link,th a:visited { color:#3366cc; background-color:inherit; }
+th a:link,th a:visited { color:#00cc33; background-color:inherit; }
 form table { border:none; }
 
 ul { margin-top:0em; list-style-type:none; }
 ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
 li.current > a { background-color:#cccccc; width:100%; }
-li a.current { color: black; font-weight: bold; font-size: larger; }
+li a.current { color: #006633; font-weight: bold; font-size: larger; }
 
 
 /* Top Banner stuff */
-#banner { height:62px; border-bottom:2px solid black; background:#3366cc url('images/citylogo-white.gif') no-repeat; padding-left:80px; }
-#application_name { color:white; background-color:#3366cc; text-align:left; padding-top:5px; }
-#location_name { color:white; background-color:#3366cc; text-align:left; font-size:12pt; }
-#banner a { color:white; background-color:#3366cc; text-decoration:none; }
+#banner { height:109px; background:#ffffff url('images/banner.jpg') no-repeat; padding-left:20px; }
+#application_name { position: absolute; top: -9999em; left: -9999em; }
+#banner a { color:white; background-color:#006633; text-decoration:none; }
+#navigation { padding-left: 20px; }
+#navigation ul { margin: 0; padding: 5px 0 0 0; }
+#navigation ul li { display: inline; list-style-type: none; font-weight: bold; padding: 0 10px 0 0; margin: 0; }
 
 /* Used to create a menu bar across any div */
 .menuBar { width:100%; border-bottom:2px solid black; background-color:#FFFFFF; font-size:12px; }
@@ -72,7 +74,7 @@ li a.current { color: black; font-weight: bold; font-size: larger; }
 .interfaceBox { border-bottom:2px dotted black; }
 .interfaceBox img { margin:0; }
 
-.interfaceBox h1 { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.interfaceBox h1 { background-color:#006633; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
 .interfaceBox h1 a { margin:0px; height:20px; }
 .interfaceBox h1 a:link,.titleBar a:visited { color:white; background-color:transparent; }
 .interfaceBox h1 form { margin:0; padding:0; display:inline; height:1em; }
@@ -80,14 +82,14 @@ li a.current { color: black; font-weight: bold; font-size: larger; }
 
 /* These are for the boxes on the sides of the page */
 .sidebar { width:270px; font-size:12px; margin-top:1em; margin-left: 10px; padding-right: 10px; }
-.sidebar h1 { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.sidebar h1 { background-color:#006633; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
 
 .sidebar ul { list-style-type:none; margin-left:.5em; padding:0; }
 .sidebar ul a { display:inline; font-weight:bold; }
 .sidebar fieldset { border:0; }
 .sidebar legend { display:none; }
 .sidebar div { margin-bottom:2em; border:2px solid black; padding-bottom: 5px; }
-.sidebar div h1 { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0px 0px 5px 0px; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
+.sidebar div h1 { background-color:#00cc33; height:20px; color:black; font-family: sans-serif; font-size:12pt; margin:0px 0px 5px 0px; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
 .sidebar input { width:140px; }
 	h1 form { margin:0; padding:0; display:inline; height:1em; }
 	h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
