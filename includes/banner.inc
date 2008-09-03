@@ -17,14 +17,12 @@
 </head>
 <body>
 <div id="banner">
-	<div id="application_name">Picture Pages: A Family Photo Album</div>
-</div>
-<div id="navigation">
-	<ul>
-		<li><a href="<?php echo BASE_URL; ?>">Home</a></li>
-	<?php
-		if (isset($_SESSION['USER'])) { echo "<li><a href=\"".BASE_URL."/login/logout.php\">Logout</a></li>"; }
-		else { echo "<li><a href=\"".BASE_URL."/login\">Login</a></li>"; }
-	?>
-	</ul>
+	<div id="application_name"><a href="<?php echo BASE_URL; ?>">Photobase</a></div>
+	<div id="location_name">A Photo database</div>
+	<div id="navigation">
+		<?php
+			if (isset($_SESSION['USER'])) { echo "<li><a href=\"".BASE_URL."/login/logout.php\">Logout</a></li>"; }
+			else { echo "<li><a href=\"".BASE_URL."/login\">Login</a></li>"; }
+		?>
+	</div>
 </div>
