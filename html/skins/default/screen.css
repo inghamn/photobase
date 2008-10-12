@@ -23,7 +23,7 @@ img { border:0; }
 .caption { clear:both; display:block; }
 
 
-h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
+h1 { margin:1em 0 0 0; text-align:left; font-size:16pt; font-weight:bold; }
 h2 { margin:0; font-size:14pt; font-weight:bold; }
 h3 { margin-top:.5em; font-size:12pt; font-weight:bold; }
 h4 { margin-top:.5em; font-size:10pt; font-weight:bold; }
@@ -95,6 +95,7 @@ li a.current { color: #00cc33; font-weight: bold; font-size: larger; }
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { background-color:inherit; margin-left:290px; margin-top:1em; }
+#mainContent form { margin-top:1em; }
 
 /* Used to draw fancy bordered boxes around content */
 /*.interfaceBox { border-bottom:2px dotted black; } */ 
