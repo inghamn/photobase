@@ -6,7 +6,13 @@
  */
 ?>
 <div class="left sidebar">
-	<div class="tags"><h1>Tags</h1>
+<?php
+	if (userHasRole('Administrator'))
+	{
+		include APPLICATION_HOME.'/includes/sidebarBoxes/Administrator.inc';
+	}
+?>
+	<div class="tags"><h3>Tags</h3>
 	<?php
 		$tagList = new TagList();
 		$fields = isset($this->mediaList) ? array('mediaList'=>$this->mediaList) : null;
@@ -43,19 +49,7 @@
 
 	?>
 	</div>
-	<div><h1>Rolls</h1>
-		<ul><?php
-				$list = new RollList();
-				$list->find();
-				foreach($list as $roll)
-				{
-					$name = View::escape($roll->getName());
-					echo "<li><a href=\"{$roll->getURL()}\">$name</a></li>";
-				}
-			?>
-		</ul>
-	</div>
-	<div><h1>Location</h1>
+	<div><h3>Location</h3>
 		<form method="get" action="<?php echo BASE_URL; ?>/media">
 		<fieldset>
 			<table>
@@ -108,10 +102,16 @@
 		</fieldset>
 		</form>
 	</div>
-<?php
-	if (userHasRole('Administrator'))
-	{
-		include APPLICATION_HOME.'/includes/sidebarBoxes/Administrator.inc';
-	}
-?>
+	<div><h3>Rolls</h3>
+		<ul><?php
+				$list = new RollList();
+				$list->find();
+				foreach($list as $roll)
+				{
+					$name = View::escape($roll->getName());
+					echo "<li><a href=\"{$roll->getURL()}\">$name</a></li>";
+				}
+			?>
+		</ul>
+	</div>
 </div>

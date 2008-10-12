@@ -9,8 +9,7 @@ if (isset($_SESSION['filters']) && count($_SESSION['filters']))
 	echo "
 	<div class=\"interfaceBox\">
 		<h1>
-			<a class=\"reset button\" href=\"".BASE_URL."/media?reset\">Reset</a>
-			Filters
+			Filters [<a class=\"reset button\" href=\"".BASE_URL."/media?reset\">Reset</a>]
 		</h1>
 		<ul>
 	";
@@ -41,8 +40,7 @@ if (isset($_SESSION['filters']) && count($_SESSION['filters']))
 		}
 
 		echo "
-		<li><a class=\"delete button\" href=\"".BASE_URL."/media?reset=$filter\">Delete</a>
-			$label:$value
+		<li>$label:$value [<a class=\"delete button\" href=\"".BASE_URL."/media?reset=$filter\">Remove</a>]
 		</li>
 		";
 	}

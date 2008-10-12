@@ -62,13 +62,8 @@ if (count($list) > 12)
 }
 else { $mediaList = $list; }
 
-
-
 $template = new Template();
 $template->blocks[] = new Block('media/currentFilters.inc');
-
-$template->mediaList = $list;
-$template->blocks[] = new Block('media/thumbnails.inc',array('mediaList'=>$mediaList));
 
 if (isset($pages))
 {
@@ -79,4 +74,13 @@ if (isset($pages))
 
 	$template->blocks[] = $pageNavigation;
 }
+
+$template->mediaList = $list;
+$template->blocks[] = new Block('media/thumbnails.inc',array('mediaList'=>$mediaList));
+
+if (isset($pages))
+{
+	$template->blocks[] = $pageNavigation;
+}
+
 echo $template->render();
