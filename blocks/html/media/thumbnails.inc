@@ -13,10 +13,10 @@ foreach($this->mediaList as $media)
 		$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/media/edit.php?media_id={$media->getId()}';\">Edit</button>";
 	}
 	else { $button = ''; }
-	
+
 	$caption = array();
 	if ($media->getState()) { $caption[] = $media->getState(); }
-	if ($media->getDate('Y')) { $caption[] = $media->getDate('Y'); }
+	if ($media->getYear()) { $caption[] = $media->getYear(); }
 	$caption = implode(', ',$caption);
 
 	echo "

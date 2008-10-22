@@ -15,6 +15,7 @@ class Media extends ActiveRecord
 	private $user_id;
 	private $roll_id;
 	private $date;
+	private $year;
 	private $city;
 	private $state;
 	private $country;
@@ -52,14 +53,28 @@ class Media extends ActiveRecord
 		if ($id)
 		{
 			$PDO = Database::getConnection();
-			$sql = 'select id,filename,mime_type,media_type,title,description,md5,user_id,roll_id,
-						unix_timestamp(date) as date,city,state,country,notes from media where id=?';
-			$query = $PDO->prepare($sql);
+			$query = $PDO->prepare('select * from media where id=?');
 			$query->execute(array($id));
 
 			$result = $query->fetchAll();
 			if (!count($result)) { throw new Exception('media/unknownMedia'); }
-			foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+			foreach($result[0] as $field=>$value)
+			{
+				if ($value)
+				{
+					# Dates must be stored internally as timestamps
+					#
+					# MySQL cannot handle timestamps prior to 1970
+					# PHP supports negative timestamps, which go back to 1901
+					# For early dates, we need to select the dates as strings
+					# and convert them to timestamps in PHP
+					if ($field=='date' && $value!='0000-00-00')
+					{
+						$this->date = strtotime($value);
+					}
+					else { $this->$field = $value; }
+				}
+			}
 
 			$this->currentDirectory = $this->getDirectory();
 		}
@@ -93,6 +108,7 @@ class Media extends ActiveRecord
 		$fields['user_id'] = $this->user_id;
 		$fields['roll_id'] = $this->roll_id;
 		$fields['date'] = $this->date ? date('Y-m-d H:i:s',$this->date) : null;
+		$fields['year'] = $this->year ? $this->year : null;
 		$fields['city'] = $this->city ? $this->city : null;
 		$fields['state'] = $this->state ? $this->state : null;
 		$fields['country'] = $this->country ? $this->country : null;
@@ -203,7 +219,7 @@ class Media extends ActiveRecord
 
 			$this->currentDirectory = $this->getDirectory();
 		}
-		
+
 		#foreach(array_keys(self::$sizes) as $size) { $this->generateCustomSize($size); }
 
 		$this->saveTags();
@@ -290,7 +306,7 @@ class Media extends ActiveRecord
 		}
 		else { throw new Exception('media/unknownSize'); }
 	}
-	
+
 	/**
 	 * Generates and caches preview versions of media
 	 * Uses Media::sizes to predefine known sizes and extensions
@@ -371,6 +387,7 @@ class Media extends ActiveRecord
 	public function getMd5() { return $this->md5; }
 	public function getUser_id() { return $this->user_id; }
 	public function getRoll_id() { return $this->roll_id; }
+	public function getYear() { return $this->year; }
 	public function getCity() { return $this->city; }
 	public function getState() { return $this->state; }
 	public function getCountry() { return $this->country; }
@@ -417,6 +434,7 @@ class Media extends ActiveRecord
 	public function setMd5($string) { $this->md5 = trim($string); }
 	public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
 	public function setRoll_id($int) { $this->roll = new Roll($int); $this->roll_id = $int; }
+	public function setYear($int) { $this->year = ereg_replace("[^0-9]","",$int); }
 	public function setCity($string) { $this->city = trim($string); }
 	public function setState($string) { $this->state = trim($string); }
 	public function setCountry($string) { $this->country = trim($string); }
@@ -431,6 +449,8 @@ class Media extends ActiveRecord
 			if ($datetime) { $this->date = strtotime($datetime); }
 			else { $this->date = null; }
 		}
+
+		if ($this->date) { $this->year = date('Y',$this->date); }
 	}
 
 	public function setUser($user) { $this->user_id = $user->getId(); $this->user = $user; }

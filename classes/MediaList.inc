@@ -11,7 +11,7 @@ class MediaList extends PDOResultIterator
 		if (is_array($fields)) $this->find($fields);
 	}
 
-	public function find($fields=null,$sort='m.date',$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='m.year,m.date',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
@@ -29,6 +29,7 @@ class MediaList extends PDOResultIterator
 		if (isset($fields['user_id'])) { $options[] = "m.user_id='$fields[user_id]'"; }
 		if (isset($fields['roll_id'])) { $options[] = "m.roll_id='$fields[roll_id]'"; }
 		if (isset($fields['date'])) { $options[] = "m.date='$fields[date]'"; }
+		if (isset($fields['year'])) { $options[] = "m.year='$fields[year]'"; }
 		if (isset($fields['city'])) { $options[] = "m.city='$fields[city]'"; }
 		if (isset($fields['state'])) { $options[] = "m.state='$fields[state]'"; }
 		if (isset($fields['country'])) { $options[] = "m.country='$fields[country]'"; }

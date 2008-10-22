@@ -44,6 +44,7 @@ create table media (
 	user_id int unsigned not null,
 	roll_id int unsigned not null,
 	date datetime,
+	year int(4) unsigned,
 	city varchar(128),
 	state varchar(128),
 	country varchar(128),
