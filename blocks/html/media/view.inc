@@ -14,7 +14,6 @@ if (isset($_SESSION['USER']) && $this->media->permitsEditingBy($_SESSION['USER']
 }
 else { $button = ''; }
 
-
 $date = $this->media->getDate() ? $this->media->getDate('n/j/Y') : $this->media->getYear();
 $description = View::escape($this->media->getDescription());
 $address = array();

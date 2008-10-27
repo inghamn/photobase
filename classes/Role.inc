@@ -27,7 +27,7 @@ class Role extends ActiveRecord
 			}
 			catch (Exception $e) { throw $e; }
 
-			$result = $query->fetchAll();
+			$result = $query->fetchAll(PDO::FETCH_ASSOC);
 			foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 		}
 		else
