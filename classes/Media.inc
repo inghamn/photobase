@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 Cliff Ingham. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 class Media extends ActiveRecord
 {
@@ -28,7 +29,7 @@ class Media extends ActiveRecord
 	private $tags = array();
 
 	private static $sizes = array('medium'=>array('size'=>350,'ext'=>'jpg'),
-						   'thumbnail'=>array('size'=>200,'ext'=>'gif')
+						   'thumbnail'=>array('size'=>200,'ext'=>'jpg')
 						   );
 
 	public static $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
@@ -56,7 +57,7 @@ class Media extends ActiveRecord
 			$query = $PDO->prepare('select * from media where id=?');
 			$query->execute(array($id));
 
-			$result = $query->fetchAll();
+			$result = $query->fetchAll(PDO::FETCH_ASSOC);
 			if (!count($result)) { throw new Exception('media/unknownMedia'); }
 			foreach($result[0] as $field=>$value)
 			{
