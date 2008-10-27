@@ -3,7 +3,8 @@
  * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param GET media_id
+ * @param REQUEST media_id
+ * @param REQUEST return_url
  */
 verifyUser();
 
@@ -25,7 +26,7 @@ if (isset($_POST['media_id']))
 	try
 	{
 		$media->save();
-		Header('Location: '.BASE_URL);
+		Header("Location: $_REQUEST[return_url]");
 		exit();
 	}
 	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
@@ -33,5 +34,10 @@ if (isset($_POST['media_id']))
 
 $template = new Template();
 $template->blocks[] = new Block('media/view.inc',array('media'=>$media));
-$template->blocks[] = new Block('media/editForm.inc',array('media'=>$media));
+
+$form = new Block('media/editForm.inc');
+$form->media = $media;
+$form->return_url = $_REQUEST['return_url'];
+$template->blocks[] = $form;
+
 echo $template->render();

@@ -6,13 +6,14 @@
  * @param Media $this->media
  */
 $title = View::escape($this->media->getTitle());
+$editButton = '';
 if (isset($_SESSION['USER']) && $this->media->permitsEditingBy($_SESSION['USER']))
 {
 	$url = new URL(BASE_URL.'/media/edit.php');
 	$url->media_id = $this->media->getId();
-	$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$url';\">Edit</button>";
+	$url->return_url = $_SERVER['REQUEST_URI'];
+	$editButton = "<button type=\"button\" class=\"edit\" onclick=\"document.location.href='$url';\">Edit Photo</button>";
 }
-else { $button = ''; }
 
 $date = $this->media->getDate() ? $this->media->getDate('n/j/Y') : $this->media->getYear();
 $description = View::escape($this->media->getDescription());
@@ -25,7 +26,7 @@ $address = View::escape(implode(', ',$address));
 $notes = View::escape($this->media->getNotes());
 
 echo "
-<h1>$button$title</h1>
+<h1>$editButton $title</h1>
 <div class=\"image medium\">
 	<a href=\"{$this->media->getURL()}\">
 		<img src=\"{$this->media->getURL('medium')}\" />

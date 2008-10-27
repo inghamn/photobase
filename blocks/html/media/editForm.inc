@@ -4,11 +4,13 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Media $this->media
+ * @param string $this->return_url
  */
 ?>
 <form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Media</legend>
 	<input name="media_id" type="hidden" value="<?php echo $this->media->getId(); ?>" />
+	<input name="return_url" type="hidden" value="<?php echo View::escape($this->return_url); ?>" />
 	<table>
 
 	<tr><td><label for="media-title">Title</label></td>
@@ -48,6 +50,6 @@
 	</table>
 
 	<button type="submit" class="save">Save</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/media/view.php?media_id=<?php echo $this->media->getId(); ?>';">Cancel</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
 </fieldset>
 </form>

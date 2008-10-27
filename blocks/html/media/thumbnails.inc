@@ -8,11 +8,14 @@
  */
 foreach($this->mediaList as $media)
 {
+	$editButton = '';
 	if (isset($_SESSION['USER']) && $media->permitsEditingBy($_SESSION['USER']))
 	{
-		$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/media/edit.php?media_id={$media->getId()}';\">Edit</button>";
+		$url = new URL(BASE_URL.'/media/edit.php');
+		$url->media_id = $media->getId();
+		$url->return_url = $_SERVER['REQUEST_URI'];
+		$editButton = "<button type=\"button\" class=\"edit\" onclick=\"document.location.href='$url';\">Edit Photo</button>";
 	}
-	else { $button = ''; }
 
 	$caption = array();
 	if ($media->getState()) { $caption[] = $media->getState(); }
@@ -25,7 +28,7 @@ foreach($this->mediaList as $media)
 			<img src=\"{$media->getURL('thumbnail')}\" />
 		</a>
 		<span class=\"caption\">
-			$button
+			$editButton
 			$caption
 		</span>
 	</span>
