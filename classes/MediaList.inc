@@ -104,4 +104,25 @@ class MediaList extends PDOResultIterator
 		foreach($result as $row) { $countries[] = $row['country']; }
 		return $countries;
 	}
+
+	/**
+	 * Returns an array of MD5s that have more than one photo
+	 * @return array
+	 */
+	public static function getDuplicateMD5s()
+	{
+		$PDO = Database::getConnection();
+		
+		$sql = "select md5,count(*) as count from media group by md5 having count>1";
+		$query = $PDO->prepare($sql);
+		$query->execute();
+		$result = $query->fetchAll(PDO::FETCH_ASSOC);
+		
+		$output = array();
+		foreach($result as $row)
+		{
+			$output[] = $row['md5'];
+		}
+		return $output;
+	}
 }

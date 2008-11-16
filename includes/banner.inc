@@ -13,6 +13,7 @@
 		@import url("<?php echo BASE_URL; ?>/skins/default/screen.css");
 	</style>
 	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/default/print.css");</style>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 	<title>Photobase</title>
 </head>
 <body>

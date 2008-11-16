@@ -151,6 +151,28 @@ class Media extends ActiveRecord
 		$query->execute($values);
 		$this->id = $PDO->lastInsertID();
 	}
+	
+	public function delete()
+	{
+		if ($this->id)
+		{
+			# Delete the thumbnails from the hard drive
+			foreach(glob("{$this->getDirectory()}/*/{$this->id}.*") as $file)
+			{
+				unlink($file);
+			}
+			# Delete the original
+			unlink($this->getDirectory().'/'.$this->getInternalFilename());
+	
+			# Clear out the database
+			$PDO = Database::getConnection();
+			$query = $PDO->prepare('delete from media_tags where media_id=?');
+			$query->execute(array($this->id));
+
+			$query = $PDO->prepare('delete from media where id=?');
+			$query->execute(array($this->id));
+		}
+	}
 
 	/**
 	 * Cleans the filename of the given file and
