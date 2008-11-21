@@ -13,6 +13,7 @@
 			{
 				echo "
 				<li><a href=\"".BASE_URL."/users/myInfo.php\">Edit Account</a></li>
+				<li><a href=\"".BASE_URL."/uploads\">Uploads</a></li>
 				<li><a href=\"".BASE_URL."/login/logout.php\">Logout</a></li>
 				";
 			}
