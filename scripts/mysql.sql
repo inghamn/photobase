@@ -43,7 +43,7 @@ create table media (
 	md5 varchar(32) not null,
 	user_id int unsigned not null,
 	roll_id int unsigned not null,
-	date datetime,
+	date date,
 	year int(4) unsigned,
 	city varchar(128),
 	state varchar(128),

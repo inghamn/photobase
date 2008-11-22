@@ -11,14 +11,17 @@
 $media = new Media($_GET['media_id']);
 $size = isset($_GET['size']) ? $_GET['size'] : '';
 
-switch($size)
+foreach(Media::getSizes() as $knownSize=>$sizeInfo)
 {
-	case 'thumbnail':
-		Header('Content-type: image/gif');
-		$media->output('thumbnail');
-		break;
-
-	default:
-		Header("Content-type: image/jpg");
-		$media->output('medium');
+	if ($size == $knownSize)
+	{
+		$extensions = Media::getExtensions();
+		Header('Content-type: '.$extensions[$sizeInfo['ext']]['mime_type']);
+		$media->output($size);
+		exit();
+	}
 }
+
+# If we could find the size they asked for, just show the medium size
+Header("Content-type: image/jpg");
+$media->output('medium');

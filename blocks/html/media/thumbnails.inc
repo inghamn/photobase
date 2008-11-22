@@ -6,6 +6,18 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param MediaList $this->mediaList
  */
+if (isset($_SESSION['USER']))
+{
+	$url = new URL(BASE_URL.'/media/editPage.php');
+	if (isset($_GET['page'])) { $url->page = $_GET['page']; }
+	echo "
+	<div>
+		<button type=\"button\" onclick=\"document.location.href='$url';\">
+			Edit this page
+		</button>
+	</div>
+	";
+}
 foreach($this->mediaList as $media)
 {
 	$editButton = '';

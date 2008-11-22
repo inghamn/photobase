@@ -16,11 +16,6 @@ if (isset($_POST['media_id']))
 	{
 		$set = 'set'.ucfirst($field);
 		$media->$set($value);
-
-		if (isset($_POST['date']))
-		{
-			$media->setDate("$_POST[date] $_POST[time]");
-		}
 	}
 
 	try

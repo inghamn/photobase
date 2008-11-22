@@ -92,7 +92,10 @@ class Tag extends ActiveRecord
 			$query = $PDO->prepare($sql);
 			$query->execute(array($this->id));
 			$result = $query->fetchAll();
-			return $result[0]['popularity'];
+			if (count($result))
+			{
+				return $result[0]['popularity'];
+			}
 		}
 	}
 

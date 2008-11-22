@@ -24,9 +24,8 @@
 	<tr><td><label for="media-tags">Tags</label></td>
 		<td><input name="media[tags]" id="media-tags" value="<?php echo implode(' ',$this->media->getTags()); ?>" /></td></tr>
 
-	<tr><td><label for="date">Date</label></td>
-		<td><input name="date" id="date" size="10" maxlength="10" value="<?php echo $this->media->getDate('n/j/Y'); ?>" />
-			<input name="time" id="time" size="7" maxlength="7" value="<?php echo $this->media->getDate('g:ia'); ?>" />
+	<tr><td><label for="media-date">Date</label></td>
+		<td><input name="media[date]" id="media-date" size="10" maxlength="10" value="<?php echo $this->media->getDate('n/j/Y'); ?>" />
 		</td>
 	</tr>
 

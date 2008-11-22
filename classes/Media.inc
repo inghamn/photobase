@@ -29,19 +29,21 @@ class Media extends ActiveRecord
 	private $tags = array();
 
 	private static $sizes = array('medium'=>array('size'=>350,'ext'=>'jpg'),
-						   'thumbnail'=>array('size'=>200,'ext'=>'jpg')
+						   'thumbnail'=>array('size'=>200,'ext'=>'jpg'),
+						   'icon'=>array('size'=>80,'ext'=>'gif')
 						   );
+	public static function getSizes() { return self::$sizes; }
 
 	public static $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
 										'gif'=>array('mime_type'=>'image/gif','media_type'=>'image'),
 										'png'=>array('mime_type'=>'image/png','media_type'=>'image'),
-										'tiff'=>array('mime_type'=>'image/tiff','media_type'=>'image'),
-										'wmv'=>array('mime_type'=>'video/x-ms-wmv','media_type'=>'video'),
-										'mov'=>array('mime_type'=>'video/quicktime','media_type'=>'video'),
-										'rm'=>array('mime_type'=>'application/vnd.rn-realmedia','media_type'=>'video'),
-										'ram'=>array('mime_type'=>'audio/vnd.rn-realaudio','media_type'=>'audio'),
-										'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
-										'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio')
+										'tiff'=>array('mime_type'=>'image/tiff','media_type'=>'image')
+										#'wmv'=>array('mime_type'=>'video/x-ms-wmv','media_type'=>'video'),
+										#'mov'=>array('mime_type'=>'video/quicktime','media_type'=>'video'),
+										#'rm'=>array('mime_type'=>'application/vnd.rn-realmedia','media_type'=>'video'),
+										#'ram'=>array('mime_type'=>'audio/vnd.rn-realaudio','media_type'=>'audio'),
+										#'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
+										#'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio')
 								);
 	public static function getExtensions() { return self::$extensions; }
 
@@ -108,7 +110,7 @@ class Media extends ActiveRecord
 		$fields['md5'] = $this->md5 ? $this->md5 : null;
 		$fields['user_id'] = $this->user_id;
 		$fields['roll_id'] = $this->roll_id;
-		$fields['date'] = $this->date ? date('Y-m-d H:i:s',$this->date) : null;
+		$fields['date'] = $this->date ? date('Y-m-d',$this->date) : null;
 		$fields['year'] = $this->year ? $this->year : null;
 		$fields['city'] = $this->city ? $this->city : null;
 		$fields['state'] = $this->state ? $this->state : null;
@@ -174,6 +176,92 @@ class Media extends ActiveRecord
 		}
 	}
 
+
+
+	#----------------------------------------------------------------
+	# Generic Getters
+	#----------------------------------------------------------------
+	public function getId() { return $this->id; }
+	public function getFilename() { return $this->filename; }
+	public function getMime_type() { return $this->mime_type; }
+	public function getMedia_type() { return $this->media_type; }
+	public function getTitle() { return $this->title; }
+	public function getDescription() { return $this->description; }
+	public function getMd5() { return $this->md5; }
+	public function getUser_id() { return $this->user_id; }
+	public function getRoll_id() { return $this->roll_id; }
+	public function getYear() { return $this->year; }
+	public function getCity() { return $this->city; }
+	public function getState() { return $this->state; }
+	public function getCountry() { return $this->country; }
+	public function getNotes() { return $this->notes; }
+	public function getDate($format=null)
+	{
+		if ($format && $this->date)
+		{
+			if (strpos($format,'%')!==false) { return strftime($format,$this->date); }
+			else { return date($format,$this->date); }
+		}
+		else return $this->date;
+	}
+
+	public function getUser()
+	{
+		if ($this->user_id)
+		{
+			if (!$this->user) { $this->user = new User($this->user_id); }
+			return $this->user;
+		}
+		else return null;
+	}
+
+	public function getRoll()
+	{
+		if ($this->roll_id)
+		{
+			if (!$this->roll) { $this->roll = new Roll($this->roll_id); }
+			return $this->roll;
+		}
+		else return null;
+	}
+
+
+	#----------------------------------------------------------------
+	# Generic Setters
+	#----------------------------------------------------------------
+	public function setFilename($string) { $this->filename = trim($string); }
+	public function setMime_type($string) { $this->mime_type = trim($string); }
+	public function setMedia_type($string) { $this->media_type = trim($string); }
+	public function setTitle($string) { $this->title = trim($string); }
+	public function setDescription($text) { $this->description = $text; }
+	public function setMd5($string) { $this->md5 = trim($string); }
+	public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
+	public function setRoll_id($int) { $this->roll = new Roll($int); $this->roll_id = $int; }
+	public function setYear($int) { $this->year = ereg_replace("[^0-9]","",$int); }
+	public function setCity($string) { $this->city = trim($string); }
+	public function setState($string) { $this->state = trim($string); }
+	public function setCountry($string) { $this->country = trim($string); }
+	public function setNotes($string) { $this->notes = trim($string); }
+	public function setDate($date)
+	{
+		if (is_array($date)) { $this->date = $this->dateArrayToTimestamp($date); }
+		elseif(ctype_digit($date)) { $this->date = $date; }
+		else
+		{
+			$date = trim($date);
+			if ($date) { $this->date = strtotime($date); }
+			else { $this->date = null; }
+		}
+
+		if ($this->date) { $this->year = date('Y',$this->date); }
+	}
+
+	public function setUser($user) { $this->user_id = $user->getId(); $this->user = $user; }
+	public function setRoll($roll) { $this->roll_id = $roll->getId(); $this->roll = $roll; }
+
+	#----------------------------------------------------------------
+	# Custom Functions
+	#----------------------------------------------------------------
 	/**
 	 * Cleans the filename of the given file and
 	 * loads metadata about the file
@@ -397,91 +485,6 @@ class Media extends ActiveRecord
 		}
 	}
 
-
-	#----------------------------------------------------------------
-	# Generic Getters
-	#----------------------------------------------------------------
-	public function getId() { return $this->id; }
-	public function getFilename() { return $this->filename; }
-	public function getMime_type() { return $this->mime_type; }
-	public function getMedia_type() { return $this->media_type; }
-	public function getTitle() { return $this->title; }
-	public function getDescription() { return $this->description; }
-	public function getMd5() { return $this->md5; }
-	public function getUser_id() { return $this->user_id; }
-	public function getRoll_id() { return $this->roll_id; }
-	public function getYear() { return $this->year; }
-	public function getCity() { return $this->city; }
-	public function getState() { return $this->state; }
-	public function getCountry() { return $this->country; }
-	public function getNotes() { return $this->notes; }
-	public function getDate($format=null)
-	{
-		if ($format && $this->date)
-		{
-			if (strpos($format,'%')!==false) { return strftime($format,$this->date); }
-			else { return date($format,$this->date); }
-		}
-		else return $this->date;
-	}
-
-	public function getUser()
-	{
-		if ($this->user_id)
-		{
-			if (!$this->user) { $this->user = new User($this->user_id); }
-			return $this->user;
-		}
-		else return null;
-	}
-
-	public function getRoll()
-	{
-		if ($this->roll_id)
-		{
-			if (!$this->roll) { $this->roll = new Roll($this->roll_id); }
-			return $this->roll;
-		}
-		else return null;
-	}
-
-
-	#----------------------------------------------------------------
-	# Generic Setters
-	#----------------------------------------------------------------
-	public function setFilename($string) { $this->filename = trim($string); }
-	public function setMime_type($string) { $this->mime_type = trim($string); }
-	public function setMedia_type($string) { $this->media_type = trim($string); }
-	public function setTitle($string) { $this->title = trim($string); }
-	public function setDescription($text) { $this->description = $text; }
-	public function setMd5($string) { $this->md5 = trim($string); }
-	public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
-	public function setRoll_id($int) { $this->roll = new Roll($int); $this->roll_id = $int; }
-	public function setYear($int) { $this->year = ereg_replace("[^0-9]","",$int); }
-	public function setCity($string) { $this->city = trim($string); }
-	public function setState($string) { $this->state = trim($string); }
-	public function setCountry($string) { $this->country = trim($string); }
-	public function setNotes($string) { $this->notes = trim($string); }
-	public function setDate($datetime)
-	{
-		if (is_array($datetime)) { $this->date = $this->dateArrayToTimestamp($datetime); }
-		elseif(ctype_digit($datetime)) { $this->date = $datetime; }
-		else
-		{
-			$datetime = trim($datetime);
-			if ($datetime) { $this->date = strtotime($datetime); }
-			else { $this->date = null; }
-		}
-
-		if ($this->date) { $this->year = date('Y',$this->date); }
-	}
-
-	public function setUser($user) { $this->user_id = $user->getId(); $this->user = $user; }
-	public function setRoll($roll) { $this->roll_id = $roll->getId(); $this->roll = $roll; }
-
-	#----------------------------------------------------------------
-	# Custom Functions
-	#----------------------------------------------------------------
 	public static function isValidFiletype($filename)
 	{
 		$ext = self::getExtension($filename);
@@ -547,5 +550,4 @@ class Media extends ActiveRecord
 		else { throw new Exception('media/unknownSize'); }
 	}
 
-	public static function getSizes() { return self::$sizes; }
 }
