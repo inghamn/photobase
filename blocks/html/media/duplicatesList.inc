@@ -7,7 +7,11 @@
 $duplicates = MediaList::getDuplicateMD5s();
 if (count($duplicates))
 {
-	echo "<table>";
+	$count = count($duplicates);
+	echo "
+	<h1>$count Duplicates</h1>
+	<table>
+	";
 	foreach($duplicates as $md5)
 	{
 		echo "<tr>";
