@@ -24,14 +24,14 @@ if (isset($_POST['media']))
 				$media->$set($value);
 			}
 			$media->save();
-			Header('Location: '.BASE_URL."?page=$page");
-			exit();
 		}
 		catch(Exception $e)
 		{
 			$_SESSION['errorMessages'][] = $e;
 		}
 	}
+	Header('Location: '.BASE_URL."?page=$page");
+	exit();
 }
 
 #--------------------------------------------------------------------
