@@ -237,7 +237,15 @@ class Media extends ActiveRecord
 	public function setMd5($string) { $this->md5 = trim($string); }
 	public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
 	public function setRoll_id($int) { $this->roll = new Roll($int); $this->roll_id = $int; }
-	public function setYear($int) { $this->year = ereg_replace("[^0-9]","",$int); }
+	public function setYear($int)
+	{
+		$int = ereg_replace("[^0-9]","",$int);
+		if ($int) { $this->year = $int; }
+		else
+		{
+			if ($this->date) { $this->year = date('Y',$this->date); }
+		}
+	}
 	public function setCity($string) { $this->city = trim($string); }
 	public function setState($string) { $this->state = trim($string); }
 	public function setCountry($string) { $this->country = trim($string); }
