@@ -3,6 +3,8 @@
  * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
+verifyUser('Administrator');
+
 $rollList = new RollList();
 $rollList->find();
 

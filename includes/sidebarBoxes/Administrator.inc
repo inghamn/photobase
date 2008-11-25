@@ -11,5 +11,6 @@
 		<li><a href="<?php echo BASE_URL; ?>/users">Users</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/uploads">Uploads</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/media/duplicates.php">Duplicates</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/rolls">Rolls</a></li>
 	</ul>
 </div>
