@@ -153,7 +153,7 @@ class Media extends ActiveRecord
 		$query->execute($values);
 		$this->id = $PDO->lastInsertID();
 	}
-	
+
 	public function delete()
 	{
 		if ($this->id)
@@ -165,7 +165,7 @@ class Media extends ActiveRecord
 			}
 			# Delete the original
 			unlink($this->getDirectory().'/'.$this->getInternalFilename());
-	
+
 			# Clear out the database
 			$PDO = Database::getConnection();
 			$query = $PDO->prepare('delete from media_tags where media_id=?');
@@ -190,7 +190,18 @@ class Media extends ActiveRecord
 	public function getMd5() { return $this->md5; }
 	public function getUser_id() { return $this->user_id; }
 	public function getRoll_id() { return $this->roll_id; }
-	public function getYear() { return $this->year; }
+	/**
+	 * If a year hasn't been saved - see if we have a date
+	 */
+	public function getYear()
+	{
+		if (!$this->year) {
+			if ($this->date) {
+				$this->year = $this->getDate('Y');
+			}
+		}
+		return $this->year;
+	}
 	public function getCity() { return $this->city; }
 	public function getState() { return $this->state; }
 	public function getCountry() { return $this->country; }
