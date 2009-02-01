@@ -330,9 +330,13 @@ class Media extends ActiveRecord
 			# Clean out any previous version of the file
 			if ($this->id)
 			{
-				foreach(glob($this->getDirectory().'/'.$this->id.'.') as $file)
+				$oldFiles = glob($this->getDirectory().'/'.$this->id.'.*');
+				if ($oldFiles !== false && count($oldFiles))
 				{
-					unlink($this->getDirectory().'/'.$file);
+					foreach($oldFiles as $file)
+					{
+						unlink($this->getDirectory().'/'.$file);
+					}
 				}
 			}
 
