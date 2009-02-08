@@ -36,7 +36,7 @@ foreach($this->mediaList as $media)
 		<td><input name=\"media[{$media->getId()}][tags]\" value=\"$tags\" /></td>
 	</tr>
 	<tr><td colspan=\"5\">
-			<textarea name=\"media[{$media->getId()}][description\" rows=\"2\" cols=\"60\">$description</textarea>
+			<textarea name=\"media[{$media->getId()}][description]\" rows=\"2\" cols=\"60\">$description</textarea>
 		</td>
 	</tr>
 	";
