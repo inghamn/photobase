@@ -43,7 +43,7 @@ input, select, textarea { border: 1px solid black; }
 
 table { border-collapse:collapse; border:1px solid white; }
 tr { vertical-align:top; }
-td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
+td { padding-left:.5em; padding-right:.5em; background-color:inherit; vertical-align:top; }
 th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
 th a:link,th a:visited { color:#3366cc; background-color:inherit; }
 form table { border:none; }
@@ -98,7 +98,7 @@ li a.current { color: #00cc33; font-weight: bold; font-size: larger; }
 #mainContent form { margin-top:1em; }
 
 /* Used to draw fancy bordered boxes around content */
-/*.interfaceBox { border-bottom:2px dotted black; } */ 
+/*.interfaceBox { border-bottom:2px dotted black; } */
 .interfaceBox img { margin:0; }
 
 .interfaceBox h1 { background-color:#006633; color:white; font-size:14pt; border:2px solid white; font-weight:bold; padding-left:.5em; padding-right:.5em; }
