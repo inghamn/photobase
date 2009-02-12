@@ -20,30 +20,26 @@ if (isset($_SESSION['USER']))
 }
 foreach($this->mediaList as $media)
 {
-	$editButton = '';
-	if (isset($_SESSION['USER']) && $media->permitsEditingBy($_SESSION['USER']))
-	{
-		$url = new URL(BASE_URL.'/media/edit.php');
-		$url->media_id = $media->getId();
-		$url->return_url = $_SERVER['REQUEST_URI'];
-		$editButton = "<button type=\"button\" class=\"edit\" onclick=\"document.location.href='$url';\">Edit Photo</button>";
-	}
-
 	$caption = array();
 	if ($media->getState()) { $caption[] = $media->getState(); }
 	if ($media->getYear()) { $caption[] = $media->getYear(); }
 	$caption = implode(', ',$caption);
 
 	echo "
-	<span class=\"image thumbnail\">
+	<div class=\"image thumbnail\">
 		<a href=\"".BASE_URL."/media/view.php?media_id={$media->getId()}\">
 			<img src=\"{$media->getURL('thumbnail')}\" />
 		</a>
-		<span class=\"caption\">
-			$editButton
+		<div class=\"caption\">
 			$caption
-		</span>
-	</span>
+		</div>
+		<div class=\"buttons\">
+	";
+			$buttons = new Block('media/editButtons.inc',array('media'=>$media));
+			echo $buttons->render();
+	echo "
+		</div>
+	</div>
 	";
 }
 ?>

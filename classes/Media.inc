@@ -370,8 +370,10 @@ class Media extends ActiveRecord
 
 	/**
 	 * Returns the filename the system will use to store the media
+	 *
 	 * This will be different from the filename the user gave it when
-	 * they uploaded it
+	 * they uploaded it.  Only returns the basename of the file.
+	 * No directory information
 	 */
 	public function getInternalFilename()
 	{
@@ -573,4 +575,33 @@ class Media extends ActiveRecord
 		else { throw new Exception('media/unknownSize'); }
 	}
 
+	/**
+	 * Deletes all thumbnails and various sized versions of the media.
+	 * Preserves only the original
+	 */
+	public function clearCache()
+	{
+		$directory = $this->getDirectory();
+		foreach (glob("{$this->getDirectory()}/*/{$this->id}.*") as $file) {
+			unlink($file);
+		}
+	}
+
+	/**
+	 * Rotates and overwrites the original image
+	 * Supports rotating 90 degrees either left or right
+	 *
+	 * @param string $direction ('left','right')
+	 */
+	public function rotate($direction)
+	{
+		$degrees = 90;
+		if ($direction == 'left') {
+			$degrees = -90;
+		}
+		$originalFile = $this->getDirectory().'/'.$this->getInternalFilename();
+		exec(IMAGEMAGICK."/mogrify -rotate $degrees $originalFile");
+
+		$this->clearCache();
+	}
 }
