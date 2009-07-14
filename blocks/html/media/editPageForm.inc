@@ -12,7 +12,7 @@
 	<table>
 	<tr><th></th>
 		<th><button type="button" onclick="fillDown('date');">Date</button></th>
-		<th><button type="button" onclick="fillDown('cty');">City</button></th>
+		<th><button type="button" onclick="fillDown('city');">City</button></th>
 		<th><button type="button" onclick="fillDown('state');">State</button></th>
 		<th><button type="button" onclick="fillDown('country');">Country</button></th>
 		<th><button type="button" onclick="fillDown('tags');">Tags</button></th>
