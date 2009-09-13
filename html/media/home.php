@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2008 Cliff Ingham. All rights reserved.
+ * @copyright Copyright 2008-2009 Cliff Ingham
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -16,6 +16,15 @@ foreach($_REQUEST as $key=>$value)
 			{
 				$roll = new Roll($_GET['roll_id']);
 				$_SESSION['filters']['roll_id'] = $roll->getId();
+			}
+			catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		break;
+
+		case 'album_id':
+			try
+			{
+				$album = new Album($_GET['album_id']);
+				$_SESSION['filters']['album_id'] = $album->getId();
 			}
 			catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 		break;

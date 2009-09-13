@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 Cliff Ingham. All rights reserved.
+ * @copyright Copyright 2006-2009 Cliff Ingham
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param MediaList $this->mediaList
  */
 ?>
@@ -102,16 +103,41 @@
 		</fieldset>
 		</form>
 	</div>
+	<div><h3>
+			Albums
+			<a class="add button" href="<?php echo BASE_URL; ?>/albums/addAlbum.php">Add</a>
+		</h3>
+	<?php
+		$list = new AlbumList();
+		$list->find();
+		if (count($list))
+		{
+			echo "<ul>";
+			foreach ($list as $album)
+			{
+				$name = View::escape($album->getName());
+				echo "<li><a href=\"{$album->getURL()}\">$name</a></li>";
+			}
+			echo "</ul>";
+		}
+	?>
+	</div>
 	<div><h3>Rolls</h3>
-		<ul><?php
-				$list = new RollList();
-				$list->find();
-				foreach($list as $roll)
-				{
-					$name = View::escape($roll->getName());
-					echo "<li><a href=\"{$roll->getURL()}\">$name</a></li>";
-				}
-			?>
-		</ul>
+		<form method="get" action="<?php echo BASE_URL; ?>/media">
+			<fieldset>
+				<select name="roll_id" onchange="this.form.submit();">
+					<option></option>
+					<?php
+						$list = new RollList();
+						$list->find();
+						foreach($list as $roll)
+						{
+							$name = View::escape($roll->getName());
+							echo "<option value=\"{$roll->getId()}\">$name</option>";
+						}
+					?>
+				</select>
+			</fieldset>
+		</form>
 	</div>
 </div>

@@ -1,5 +1,6 @@
--- @copyright Copyright (C) 2006,2007 Cliff Ingham. All rights reserved.
+-- @copyright Copyright 2006-2009 Cliff Ingham
 -- @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+-- @author Cliff Ingham <inghamn@bloomington.in.gov>
 create table users (
 	id int unsigned not null primary key auto_increment,
 	username varchar(30) not null,
@@ -63,4 +64,17 @@ create table media_tags (
 	tag_id int unsigned not null,
 	foreign key (media_id) references media(id),
 	foreign key (tag_id) references tags(id)
+) engine=InnoDB;
+
+create table albums (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null
+) engine=InnoDB;
+
+create table album_media (
+	album_id int unsigned not null,
+	media_id int unsigned not null,
+	primary key (album_id,media_id),
+	foreign key (album_id) references albums(id),
+	foreign key (media_id) references media(id)
 ) engine=InnoDB;

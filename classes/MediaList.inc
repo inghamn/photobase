@@ -37,7 +37,7 @@ class MediaList extends PDOResultIterator
 
 
 
-		# Finding on fields from other tables required joining those tables.
+		# Finding on fields from other tables requires joining those tables.
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
 		if (isset($fields['tag_id']))
@@ -56,6 +56,11 @@ class MediaList extends PDOResultIterator
 			$tags = implode(',',$fields['tag_ids']);
 			$this->joins.= " inner join media_tags mt on m.id=mt.media_id and mt.tag_id in ($tags)";
 			$this->groupBy = 'm.id having count(*)='.count($fields['tag_ids']);
+		}
+		if (isset($fields['album_id']))
+		{
+			$this->joins.= " left join album_media a on m.id=a.media_id";
+			$options[] = "a.album_id='$fields[album_id]'";
 		}
 
 		$this->populateList($options);
@@ -112,12 +117,12 @@ class MediaList extends PDOResultIterator
 	public static function getDuplicateMD5s()
 	{
 		$PDO = Database::getConnection();
-		
+
 		$sql = "select md5,count(*) as count from media group by md5 having count>1";
 		$query = $PDO->prepare($sql);
 		$query->execute();
 		$result = $query->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		$output = array();
 		foreach($result as $row)
 		{
