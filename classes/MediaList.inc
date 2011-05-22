@@ -11,7 +11,7 @@ class MediaList extends PDOResultIterator
 		if (is_array($fields)) $this->find($fields);
 	}
 
-	public function find($fields=null,$sort='m.year,m.date',$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='m.year,m.date,m.filename',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
