@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 Cliff Ingham. All rights reserved.
+ * @copyright 2007-2011 Cliff Ingham
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -310,10 +310,14 @@ class Media extends ActiveRecord
 		else { throw new Exception('unknownFileType'); }
 
 		$exif = @exif_read_data($this->currentDirectory.'/'.$this->filename);
-		if ($exif)
-		{
-			if (isset($exif['DateTime']) && $exif['DateTime'])
-			{
+		if ($exif) {
+			if (isset($exif['DateTimeOriginal']) && $exif['DateTimeOriginal']) {
+				$this->date = strtotime($exif['DateTimeOriginal']);
+			}
+			elseif (isset($exif['DateTimeDigitized']) && $exif['DateTimeDigitized']) {
+				$this->date = strtotime($exif['DateTimeDigitized']);
+			}
+			elseif (isset($exif['DateTime']) && $exif['DateTime']) {
 				$this->date = strtotime($exif['DateTime']);
 			}
 		}
